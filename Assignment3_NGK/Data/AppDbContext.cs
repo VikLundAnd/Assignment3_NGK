@@ -56,6 +56,16 @@ namespace Assignment3_NGK.Data
                     Temperature = 22,
                     PlaceId = 1 // Aahus
                     
+                },
+                new Weather
+                {
+                    // Date: 27/04-2020 18:00
+                    Time = new DateTime(2020, 4, 27, 18, 0, 0, 0),
+                    AirPressure = 1013.5,
+                    Humidity = 55,
+                    Temperature = 20,
+                    PlaceId = 1 // Aahus
+
                 });
 
 

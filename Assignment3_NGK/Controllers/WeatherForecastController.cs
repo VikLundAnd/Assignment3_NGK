@@ -25,13 +25,15 @@ namespace Assignment3_NGK.Controllers
 
         // Get 3 latest uploaded
         [HttpGet]
-        public IEnumerable<Weather> Get()
+        public ICollection<Weather> Get()
         {
             var templist = new List<Weather>();
             using (var context = new AppDbContext())
             {
 
                 templist =  context.Weather
+                    .OrderByDescending(w => w.Time)
+                    .Take(3)
                     .ToList();
             }
 
@@ -39,18 +41,38 @@ namespace Assignment3_NGK.Controllers
             return templist;
         }
 
+
+
         // Get weatherdata for specific date
         [HttpGet("{date}")]
-        public IEnumerable<Weather> Get(string date)
+        public ICollection<Weather> Get(string date)
         {
-            return null;
+            var templist = new List<Weather>();
+            using (var context = new AppDbContext())
+            {
+
+                templist = context.Weather
+                    .Where(w =>w.Time.Date == DateTime.Parse(date))
+                    .ToList();
+            }
+
+            return templist;
         }
 
         // Get weatherdata between dates
         [HttpGet("{dateStart}/{dateEnd}")]
-        public IEnumerable<Weather> Get(string dateStart, string dateEnd)
+        public ICollection<Weather> Get(string dateStart, string dateEnd)
         {
-            return null;
+            var templist = new List<Weather>();
+            using (var context = new AppDbContext())
+            {
+
+                templist = context.Weather
+                    .Where(w => w.Time.Date < DateTime.Parse(dateEnd) && w.Time.Date > DateTime.Parse(dateStart))
+                    .ToList();
+            }
+
+            return templist;
         }
 
 
